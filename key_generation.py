@@ -2,7 +2,7 @@ from random import randint
 
 class KeyGeneration:
 
-    with open('prime_numbers.txt') as file:
+    with open('prime_numbers.txt', 'r') as file:
         files_content = file.read().split('\n')
     prime_numbers = files_content[:-1]
         
