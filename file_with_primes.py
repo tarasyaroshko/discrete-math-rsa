@@ -18,8 +18,8 @@ class FileWithPrimes:
                 if prime[p]:
                     file.write(str(p)+'\n')
     
-    def list_with_primes(self):
-        with open('prime_numbers.txt', 'r') as file:
-            files_content = file.read().split('\n')
-        return files_content[:-1]
+#     def list_with_primes(self):
+#         with open('prime_numbers.txt', 'r') as file:
+#             files_content = file.read().split('\n')
+#         return files_content[:-1]
         
