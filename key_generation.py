@@ -1,11 +1,11 @@
 from random import randint
-from file_with_primes import FileWithPrimes
 
 class KeyGeneration:
 
-    file = FileWithPrimes()
-    primes = file.list_with_primes()
-
+    with open('prime_numbers.txt') as file:
+        files_content = file.read().split('\n')
+    prime_numbers = files_content[:-1]
+        
     def __init__(self):
 
         self.primes = self.get_two_random_primes()
@@ -17,7 +17,7 @@ class KeyGeneration:
     def get_two_random_primes(self):
 
         ind1, ind2 = randint(10000, 664575), randint(10000, 664575)
-        return int(KeyGeneration.primes[ind1]), int(KeyGeneration.primes[ind2])
+        return int(KeyGeneration.prime_numbers[ind1]), int(KeyGeneration.prime_numbers[ind2])
 
 
     def calculate_first_half(self):
