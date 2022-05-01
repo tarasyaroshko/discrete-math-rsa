@@ -13,9 +13,6 @@ class KeyGeneration:
             return b
         return self.gcd(b, a % b)
     def inverse_mod(self, a, m):
-        '''
-        Finds modular multiplicative inverse of a under modulo m
-        '''
         for x in range(1, m):
             if (((a%m) * (x%m)) % m == 1):
                 return x
@@ -42,21 +39,16 @@ class Encryption:
         self.message = message
         self.public = public
     def fast_modular_power(self, number, power, mod):
-        bit_power_len = len(bin(power)) - 2
-        terms_mod = []
-        terms_mod.append(number % mod)
-        for i in range(bit_power_len + 1):
-            terms_mod.append(terms_mod[-1] ** 2 % mod)
-
-        output = 1
-        for i in range(bit_power_len):
-            if (1 << i) & power:
-                output *= terms_mod[i]
-                output = output % mod
-
-        return output
+        r = 1
+        if 1 & power:
+            r = number
+        while power:
+            power >>= 1
+            number = (number * number) % mod
+            if power & 1: r = (r * number) % mod
+        return r
     def encrypt(self):
-        blocks= []
+        blocks = []
         for i in range(len(message)):
             number = self.fast_modular_power(ord(self.message[i]), self.public[0], self.public[1])
             blocks.append(str(number))
@@ -83,8 +75,8 @@ class Decryption:
         message = self.message.split(' ')
         output = ""
         for number in message:
-            letter_index = self.fast_modular_power(int(number), self.private[0], self.private[1])
-            output += chr(letter_index)
+            index = self.fast_modular_power(int(number), self.private[0], self.private[1])
+            output += chr(index)
         return output
 
 
